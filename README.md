@@ -50,3 +50,20 @@ volatile场景用法：使用为状态标记量，比如某个线程的结束标
 线程封闭：局部变量无并发的相关问题又叫堆栈封闭。用ThreadLocal定义相关类。
 
 线程不安全类：StringBuilder，SimpleDateFormat，ArrayList，HashSet集合等。
+
+同步容器：Vector，Stack，HashTable，Collections中的同步类集合。在线程安全的集合中，在foreach循环和迭代器iterator中做remove操作会出现ConcurrentModification异常
+
+并发容器：CopyOnWriteArrayList。读写分离，在写的时候会复制一个副本防止其他线程读操作的数据不一致。读操作不加锁，写操作加锁。CopyOnWriteArraySet底层为CopyOnWriteArrayList，ConcurrentSkipListSet和TreeSet一样支持自然排序，键是有序的，对于增加操作为线程安全的，对于remove操作没有加同步，需要自行同步。ConcurrentSkipListMap为TreeMap的高并发容器，基于跳表实现。
+
+六。
+
+AQS：使用Node实现FIFO队列，可以用于构建锁或者其他同步装置的基础框架。利用了int类型state表示状态，使用方法继承。通过acquire和release的方法操纵状态。可以同时实现排他锁和共享锁模式。
+
+CountDownLatch：闭锁 可以让一个线程等待某一个状态
+
+Semaphore：信号量 提供有限使用的资源场景
+
+CyclicBarrier：栅栏 多个线程之间相互等待，一组线程达到某个状态时才会执行。
+
+ReentrantLock：核心为Lock和unLock。可重入锁，即线程进入一次会对锁状态标记加一。释放减一直到释放锁。相比Synchronized他1.可以指定是否是公平锁。2.提供了一个Condition类，可以分组唤醒需要唤醒的线程。3.提供了能够中断等待锁的线程的机制，lock.lockInterruptibly().
+

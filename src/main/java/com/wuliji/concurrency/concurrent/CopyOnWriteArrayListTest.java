@@ -1,15 +1,14 @@
-package com.wuliji.concurrency.commonunsafe;
+package com.wuliji.concurrency.concurrent;
 
+import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Semaphore;
 
-import org.joda.time.DateTime;
-import org.joda.time.format.DateTimeFormat;
-import org.joda.time.format.DateTimeFormatter;
-
-public class DateTimeFormatterTest {
+public class CopyOnWriteArrayListTest {
+	
 	
 	//请求总数
 	public static int clientTotal = 5000;
@@ -17,7 +16,7 @@ public class DateTimeFormatterTest {
 	//同时并发执行的线程数
 	public static int threadTotal = 200;
 	
-	private static DateTimeFormatter dateTimeFormatter = DateTimeFormat.forPattern("yyyy-MM-dd");
+	private static List<Integer> list = new CopyOnWriteArrayList<>();
 	
 	public static void main(String[] args) throws InterruptedException {
 		ExecutorService executorService = Executors.newCachedThreadPool();
@@ -38,10 +37,10 @@ public class DateTimeFormatterTest {
 		}
 		countDownLatch.await();
 		executorService.shutdown();
+		System.out.println(list.size());
 		
 	}
 	private static void update(int i) {
-		System.out.println(i + ":" + DateTime.parse("2018-02-08", dateTimeFormatter).toDate());
-		
+		list.add(i);
 	}
 }
