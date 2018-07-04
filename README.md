@@ -67,3 +67,20 @@ CyclicBarrier：栅栏 多个线程之间相互等待，一组线程达到某个
 
 ReentrantLock：核心为Lock和unLock。可重入锁，即线程进入一次会对锁状态标记加一。释放减一直到释放锁。相比Synchronized他1.可以指定是否是公平锁。2.提供了一个Condition类，可以分组唤醒需要唤醒的线程。3.提供了能够中断等待锁的线程的机制，lock.lockInterruptibly().
 
+FutureTask：用线程计算返回值，实现了Callable与FutureTask接口直接调用call方法进行封装，然后调用get获取结果。
+Fork/Join框架：将计算任务拆分成若干个子任务，然后进行递归计算处理，最后返回最终的结果。
+
+ArrayBlockingQueue：初始化时需要指定大小。遵从FIFO
+
+DelayQueue：多用于定时管理对象连接，内部对象维持着一个延迟时间，只有当延迟时间到了才回进行出队。
+
+LinkedBlockingQueue：可指定初始化大小，或者不指定默认Integer最大值作为容量。遵从FIFO 
+
+PriorityBlockingQueue：实现了Comparator接口，进行内部排序。
+
+SynchronousQueue：只允许一个元素进入，直到被消费，认为是无界队列，内部没有容量。
+
+七。
+
+线程池：重用存在的线程，减少对象创建，消亡的开销，性能好。可有效控制最大并发线程数，提高系统资源利用率，同时可以避免过多的资源竞争，避免阻塞。并且可以提供定时执行，定期执行，单线程，并发数控制等功能。
+
